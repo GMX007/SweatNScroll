@@ -3,3 +3,9 @@ dist
 .env
 
 .env.local
+
+# Xcode / iOS scaffold builds
+ios/**/build/
+ios/**/DerivedData/
+ios/**/*.xcuserstate
+ios/**/xcuserdata/
