@@ -67,7 +67,7 @@ self.addEventListener('message', (event) => {
           data: { url: '/' },
         });
       } catch (e) {
-        console.error('[Rep2Scroll SW] showNotification failed:', e);
+        console.error('[FormForge SW] showNotification failed:', e);
       }
     }, delay);
   }

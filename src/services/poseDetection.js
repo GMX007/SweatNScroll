@@ -1,5 +1,5 @@
 /**
- * Rep2Scroll Pose Detection Service
+ * FormForge Pose Detection Service
  * Uses TensorFlow.js MoveNet SinglePose Lightning for real-time exercise form verification.
  * All processing runs in the browser — no video data is ever sent to any server.
  */
@@ -51,10 +51,10 @@ export async function initPoseDetector() {
       }
     );
 
-    console.log('[Rep2Scroll] MoveNet detector initialized');
+    console.log('[FormForge] MoveNet detector initialized');
     return detector;
   } catch (err) {
-    console.error('[Rep2Scroll] Failed to init MoveNet:', err);
+    console.error('[FormForge] Failed to init MoveNet:', err);
     throw err;
   } finally {
     isLoading = false;

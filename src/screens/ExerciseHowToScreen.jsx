@@ -18,7 +18,7 @@ export default function ExerciseHowToScreen({ exercise, onReady }) {
     <div style={styles.screen}>
       {/* Header */}
       <div style={styles.header}>
-        <span style={styles.logo}>REP2SCROLL</span>
+        <span style={styles.logo}>FORMFORGE</span>
       </div>
 
       {/* Title */}
@@ -67,9 +67,9 @@ export default function ExerciseHowToScreen({ exercise, onReady }) {
         <div style={styles.step}>
           <div style={styles.stepNumber}>4</div>
           <div style={styles.stepContent}>
-            <div style={styles.stepTitle}>Earn scroll time! {'🎉'}</div>
+            <div style={styles.stepTitle}>Your form shapes your program {'🧠'}</div>
             <div style={styles.stepDesc}>
-              Every rep earns you screen time. Better form = more XP. You've got this!
+              Only clean reps count. Your form score decides when you progress, when to hold, and when to switch variations. Better form = more XP!
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
-const SOCIAL_STORAGE_KEY = 'sweatnscroll_social_device_id';
+const SOCIAL_STORAGE_KEY = 'formforge_social_device_id';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;

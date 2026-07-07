@@ -14,58 +14,75 @@ function getTipOptions(note = '') {
   return [...new Set(tips)].slice(0, 4);
 }
 
+const ADAPT_COLORS = {
+  progress: '#2ECC71',
+  hold: '#9AA0B8',
+  technique: '#F39C12',
+  regress: '#E74C3C',
+};
+
+const ADAPT_ICONS = {
+  progress: '📈',
+  hold: '🧠',
+  technique: '🎯',
+  regress: '🛠️',
+};
+
 export default function SummaryScreen() {
   const { state, dispatch } = useContext(AppContext);
-  const { lastSession } = state;
+  const { lastSet } = state;
   const [selectedTip, setSelectedTip] = useState('');
 
-  const session = lastSession || {
-    exercise: 'Push-up',
-    cleanReps: 12,
-    flaggedReps: 2,
-    formScore: 86,
-    personalBest: true,
-    topNote: 'Hips dropping',
-    minutesEarned: 4,
-    totalPossible: 20,
+  const set = lastSet || {
+    exercise: 'Push-up', setNumber: 1, totalSets: 3, target: 12,
+    cleanReps: 10, flaggedReps: 2, formScore: 86, personalBest: false,
+    topNote: null, adaptation: null, nextAction: 'next-set', nextExerciseName: null, isHold: false,
   };
 
-  const tipOptions = useMemo(() => getTipOptions(session.topNote), [session.topNote]);
-  const dynamicTip = session.topNote
-    ? `Form tip: ${session.topNote}`
-    : 'Form tip: Great form overall — keep your pace and control.';
+  const tipOptions = useMemo(() => getTipOptions(set.topNote), [set.topNote]);
+  const adaptation = set.adaptation;
+  const workoutDone = set.nextAction === 'workout-done';
+
+  const ctaLabel = set.nextAction === 'next-set'
+    ? `Next Set (${set.setNumber + 1} of ${set.totalSets}) →`
+    : set.nextAction === 'next-exercise'
+      ? `Next: ${set.nextExerciseName} →`
+      : 'Finish Workout 🎉';
 
   return (
     <div style={styles.screen}>
       {/* Header */}
       <div style={styles.header}>
         <div style={styles.checkCircle}>{'✓'}</div>
-        <div style={styles.title}>Session Done</div>
-        <div style={styles.sub}>{session.exercise} {'·'} Standard form {'·'} Chest workout</div>
+        <div style={styles.title}>{workoutDone ? 'Workout Complete' : `Set ${set.setNumber} of ${set.totalSets} Done`}</div>
+        <div style={styles.sub}>
+          {set.exercise} · target {set.target}{set.isHold ? 's' : ' reps'}
+          {set.weightLb ? ` @ ${state.settings?.units === 'kg' ? Math.round((set.weightLb / 2.20462) * 2) / 2 + ' kg' : set.weightLb + ' lb'}` : ''}
+        </div>
       </div>
 
       {/* Stat Grid */}
       <div style={styles.statGrid}>
         <div style={styles.statCard}>
-          <div style={{ ...styles.statVal, color: '#2ECC71' }}>{session.cleanReps}</div>
-          <div style={styles.statKey}>Clean Reps</div>
+          <div style={{ ...styles.statVal, color: '#2ECC71' }}>{set.cleanReps}</div>
+          <div style={styles.statKey}>Clean {set.isHold ? 'Seconds' : 'Reps'}</div>
         </div>
         <div style={styles.statCard}>
-          <div style={{ ...styles.statVal, color: '#E8533A' }}>{session.flaggedReps}</div>
-          <div style={styles.statKey}>Flagged Reps</div>
+          <div style={{ ...styles.statVal, color: '#E8533A' }}>{set.flaggedReps}</div>
+          <div style={styles.statKey}>Flagged</div>
         </div>
         <div style={styles.statCard}>
-          <div style={styles.statVal}>{session.formScore}%</div>
+          <div style={styles.statVal}>{set.formScore}%</div>
           <div style={styles.statKey}>Form Score</div>
         </div>
         <div style={styles.statCard}>
-          <div style={styles.statVal}>{session.personalBest ? '\uD83C\uDFC6' : '\u2014'}</div>
-          <div style={styles.statKey}>{session.personalBest ? 'Personal Best!' : 'Keep Going'}</div>
+          <div style={styles.statVal}>{set.personalBest ? '🏆' : '—'}</div>
+          <div style={styles.statKey}>{set.personalBest ? 'Personal Best!' : 'Keep Going'}</div>
         </div>
-        {session.topNote && (
+        {set.topNote && (
           <div style={styles.highlightCard}>
             <div style={{ flex: 1 }}>
-              <div style={{ ...styles.statVal, fontSize: 20, color: '#F39C12' }}>{session.topNote}</div>
+              <div style={{ ...styles.statVal, fontSize: 20, color: '#F39C12' }}>{set.topNote}</div>
               <div style={{ ...styles.statKey, marginTop: 6 }}>Most common form note</div>
             </div>
             <span style={{ fontSize: 28 }}>{'⚠️'}</span>
@@ -73,57 +90,57 @@ export default function SummaryScreen() {
         )}
       </div>
 
-      {/* Scroll time bar */}
-      <div style={{ margin: '16px 20px 0' }}>
-        <div style={{ fontSize: 11, color: '#9AA0B8', marginBottom: 8, letterSpacing: 1, textTransform: 'uppercase' }}>
-          Scroll time earned
+      {/* Program adaptation — form data driving the program */}
+      {adaptation && (
+        <div style={{
+          ...styles.adaptCard,
+          borderColor: `${ADAPT_COLORS[adaptation.action]}44`,
+        }}>
+          <span style={{ fontSize: 22 }}>{ADAPT_ICONS[adaptation.action] || '🧠'}</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: 1, color: ADAPT_COLORS[adaptation.action] }}>
+              Program adaptation
+            </div>
+            <div style={styles.adaptText}>{adaptation.message}</div>
+          </div>
         </div>
-      </div>
-      <div style={styles.barEarned}>
-        <div style={{ ...styles.barFill, width: `${(session.minutesEarned / session.totalPossible) * 100}%` }} />
-      </div>
-      <div style={styles.barLabel}>
-        <span>0 min</span>
-        <span style={{ color: '#E8533A', fontWeight: 600 }}>+{session.minutesEarned} min earned</span>
-        <span>{session.totalPossible} min</span>
-      </div>
+      )}
 
       {/* Form tip */}
-      <div style={styles.formTip}>
-        {'💡'} {dynamicTip}
-      </div>
-      <div style={styles.tipButtons}>
-        {tipOptions.map((tip) => (
-          <button
-            key={tip}
-            type="button"
-            onClick={() => setSelectedTip(tip)}
-            style={{
-              ...styles.tipBtn,
-              ...(selectedTip === tip ? styles.tipBtnActive : {}),
-            }}
-          >
-            {tip}
-          </button>
-        ))}
-      </div>
-      {selectedTip && <div style={styles.tipSelected}>Focus next set: {selectedTip}</div>}
+      {!workoutDone && (
+        <>
+          <div style={styles.formTip}>
+            {'💡'} {set.topNote ? `Form tip: ${set.topNote}` : 'Form tip: Great control — keep that pace.'}
+          </div>
+          <div style={styles.tipButtons}>
+            {tipOptions.map((tip) => (
+              <button
+                key={tip}
+                type="button"
+                onClick={() => setSelectedTip(tip)}
+                style={{
+                  ...styles.tipBtn,
+                  ...(selectedTip === tip ? styles.tipBtnActive : {}),
+                }}
+              >
+                {tip}
+              </button>
+            ))}
+          </div>
+          {selectedTip && <div style={styles.tipSelected}>Focus next set: {selectedTip}</div>}
+        </>
+      )}
 
       {/* CTAs */}
       <div style={{ marginTop: 4 }}>
-        <Button onClick={() => dispatch({ type: 'START_SCROLLING' })}>
-          Start Scrolling {'→'}
+        <Button onClick={() => dispatch({ type: 'CONTINUE_WORKOUT' })}>
+          {ctaLabel}
         </Button>
       </div>
-      <div style={{ marginTop: 8 }}>
-        <Button variant="secondary" onClick={() => dispatch({ type: 'NEW_SET' })}>
-          Do Another Set
-        </Button>
-      </div>
-      {state.tier === 'standard' && (
+      {!workoutDone && (
         <div style={{ marginTop: 8 }}>
-          <Button variant="secondary" onClick={() => dispatch({ type: 'SHOW_BODY_PART_PICKER' })}>
-            {'🎯'} Choose Exercise
+          <Button variant="secondary" onClick={() => dispatch({ type: 'END_WORKOUT' })}>
+            End Workout Early
           </Button>
         </div>
       )}
@@ -202,26 +219,21 @@ const styles = {
     alignItems: 'center',
     gap: 16,
   },
-  barEarned: {
-    height: 8,
-    background: 'rgba(255,255,255,0.08)',
-    borderRadius: 4,
-    margin: '0 20px',
-    overflow: 'hidden',
-  },
-  barFill: {
-    height: '100%',
-    background: 'linear-gradient(90deg, #E8533A, #F0A500)',
-    borderRadius: 4,
-    boxShadow: '0 0 12px rgba(232,83,58,0.5)',
-    transition: 'width 0.5s ease',
-  },
-  barLabel: {
-    margin: '8px 20px 0',
+  adaptCard: {
+    margin: '12px 20px 0',
+    background: 'rgba(255,255,255,0.04)',
+    border: '1px solid',
+    borderRadius: 16,
+    padding: '14px 16px',
     display: 'flex',
-    justifyContent: 'space-between',
-    fontSize: 11,
-    color: '#9AA0B8',
+    alignItems: 'center',
+    gap: 14,
+  },
+  adaptText: {
+    fontSize: 13,
+    color: '#F4F1EB',
+    marginTop: 3,
+    lineHeight: 1.4,
   },
   formTip: {
     margin: '12px 20px',

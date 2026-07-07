@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 /**
- * Rep2Scroll button — primary (orange) or secondary (ghost).
+ * FormForge button — primary (orange) or secondary (ghost).
  */
 export default function Button({ children, variant = 'primary', onClick, style = {}, disabled = false }) {
   const [hover, setHover] = useState(false);

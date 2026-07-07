@@ -56,7 +56,15 @@ export default function ProgressScreen() {
         <StatCard value={`🔥 ${streak}`} label="Day Streak" />
         <StatCard value={totalReps} label="Total Reps" />
         <StatCard value={sessionsCompleted || 0} label="Sessions" />
-        <StatCard value={`${Math.floor((state.earnedMinutes || 0))} min`} label="Time Earned Today" color="#E8533A" />
+        <StatCard
+          value={(() => {
+            const entries = Object.values(state.formProfile || {});
+            if (entries.length === 0) return '—';
+            return `${Math.round(entries.reduce((s, e) => s + (e.avg || 0), 0) / entries.length)}%`;
+          })()}
+          label="Movement Quality"
+          color="#E8533A"
+        />
       </div>
 
       {/* Weekly chart — real data from dailyHistory */}

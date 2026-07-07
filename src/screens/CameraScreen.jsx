@@ -54,20 +54,35 @@ export default function CameraScreen({ exercise, onComplete, onSwitchExercise })
   const [selectedFix, setSelectedFix] = useState('');
   const lastFormLevel = useRef('green');
   const targetCelebratedRef = useRef(false);
+  // Real form tracking — this score drives the program engine.
+  const cleanRepsRef = useRef(0);
+  const flaggedRepsRef = useRef(0);
+  const formBreaksRef = useRef(0);
+
+  const computeFormScore = useCallback(() => {
+    const totalCounted = cleanRepsRef.current + flaggedRepsRef.current;
+    if (exercise?.type === 'hold') {
+      // Holds: start from 100, each form break costs 10.
+      return Math.max(40, 100 - formBreaksRef.current * 10);
+    }
+    if (totalCounted === 0) return 80;
+    return Math.round((cleanRepsRef.current / totalCounted) * 100);
+  }, [exercise]);
 
   const completeSession = useCallback((payload = {}) => {
     const formNote = lastFlagMessage && !/get ready/i.test(lastFlagMessage) ? lastFlagMessage : null;
     onComplete?.({
       reps,
       holdTime,
-      formScore: 80,
+      formScore: computeFormScore(),
       topNote: formNote,
       ...payload,
     });
-  }, [reps, holdTime, lastFlagMessage, onComplete]);
+  }, [reps, holdTime, lastFlagMessage, onComplete, computeFormScore]);
 
   const isHold = exercise?.type === 'hold';
-  const target = getScaledTarget(exercise, state.gender, state.activityLevel, state.sessionsCompleted);
+  // Program-driven target (form-gated); falls back to base scaling.
+  const target = state.currentTarget || getScaledTarget(exercise, state.gender, state.activityLevel, state.sessionsCompleted);
 
   // Start camera
   useEffect(() => {
@@ -85,7 +100,7 @@ export default function CameraScreen({ exercise, onComplete, onSwitchExercise })
           setCameraReady(true);
         }
       } catch (err) {
-        console.error('[Rep2Scroll] Camera access denied:', err);
+        console.error('[FormForge] Camera access denied:', err);
         setFormStatus({ level: 'red', message: 'Camera access denied — check browser settings' });
       }
     }
@@ -106,7 +121,10 @@ export default function CameraScreen({ exercise, onComplete, onSwitchExercise })
 
   useEffect(() => {
     targetCelebratedRef.current = false;
-  }, [exercise?.id, target, isHold]);
+    cleanRepsRef.current = 0;
+    flaggedRepsRef.current = 0;
+    formBreaksRef.current = 0;
+  }, [exercise?.id, isHold]);
 
   // 5-second positioning countdown
   useEffect(() => {
@@ -147,6 +165,7 @@ export default function CameraScreen({ exercise, onComplete, onSwitchExercise })
 
         if (result.level === 'pause') {
           setPaused(true);
+          formBreaksRef.current += 1;
           if (!muted) playFormBreak();
         }
 
@@ -171,6 +190,11 @@ export default function CameraScreen({ exercise, onComplete, onSwitchExercise })
         }
 
         if (!isHold && result.repCompleted) {
+          if (result.level === 'red' || result.level === 'amber') {
+            flaggedRepsRef.current += 1;
+          } else {
+            cleanRepsRef.current += 1;
+          }
           setReps(prev => {
             const newReps = prev + 1;
             if (newReps >= target && !targetCelebratedRef.current) {
@@ -193,7 +217,7 @@ export default function CameraScreen({ exercise, onComplete, onSwitchExercise })
         }
       }
     } catch (err) {
-      console.error('[Rep2Scroll] Pose detection error:', err);
+      console.error('[FormForge] Pose detection error:', err);
     }
 
     animFrameRef.current = requestAnimationFrame(detectLoop);
@@ -254,7 +278,7 @@ export default function CameraScreen({ exercise, onComplete, onSwitchExercise })
         <div style={styles.pauseOverlay}>
           <div style={styles.pauseContent}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-              <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, color: '#E8533A', letterSpacing: 2 }}>REP2SCROLL</div>
+              <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, color: '#E8533A', letterSpacing: 2 }}>FORMFORGE</div>
               <div style={{ background: 'rgba(240,165,0,0.15)', border: '1px solid rgba(240,165,0,0.3)', borderRadius: 20, padding: '4px 10px', fontSize: 11, fontWeight: 600, color: '#F0A500', display: 'flex', alignItems: 'center', gap: 4 }}>
                 {'⚡'} GRINDER
               </div>
@@ -360,8 +384,8 @@ export default function CameraScreen({ exercise, onComplete, onSwitchExercise })
         {muted ? '🔇' : '🔊'}
       </button>
 
-      <button onClick={() => completeSession({ formScore: 80 })} style={styles.endBtn}>
-        End Session
+      <button onClick={() => completeSession()} style={styles.endBtn}>
+        End Set
       </button>
     </div>
   );

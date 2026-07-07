@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../AppContext';
+import { GOALS, PROGRESSION_MODELS } from '../data/programs';
 
 export default function SettingsScreen() {
   const { state, dispatch } = useContext(AppContext);
@@ -77,25 +78,64 @@ export default function SettingsScreen() {
       {/* Account */}
       <div style={styles.sectionLabel}>Account</div>
       <div style={styles.card}>
-        <SettingRow label="Tier" value={state.tier === 'free' ? 'Free' : 'Standard'} />
         <SettingRow
           label="Avatar"
           value={state.gender === 'female' ? '🙋‍♀️ Female' : '🙋‍♂️ Male'}
           onClick={() => dispatch({ type: 'TOGGLE_GENDER' })}
         />
-        <SettingRow label="Upgrade" value="View plans" onClick={() => dispatch({ type: 'SHOW_PRICING' })} />
       </div>
+
+      {/* Training program */}
+      <div style={styles.sectionLabel}>Training Program</div>
+      <div style={styles.card}>
+        <SettingRow
+          label="Goal"
+          value={GOALS[state.userProfile?.goal]?.label || 'Build Muscle'}
+          onClick={() => {
+            const ids = Object.keys(GOALS);
+            const next = ids[(ids.indexOf(state.userProfile?.goal || 'muscle') + 1) % ids.length];
+            dispatch({ type: 'SET_GOAL', payload: next });
+          }}
+        />
+        <SettingRow
+          label="Progression Model"
+          value={PROGRESSION_MODELS[state.userProfile?.progressionModel]?.label || 'Form-Gated'}
+          onClick={() => {
+            const ids = Object.keys(PROGRESSION_MODELS);
+            const next = ids[(ids.indexOf(state.userProfile?.progressionModel || 'form-gated') + 1) % ids.length];
+            dispatch({ type: 'SET_PROGRESSION_MODEL', payload: next });
+          }}
+        />
+        <SettingRow
+          label="My Equipment"
+          value={state.userEquipment?.length > 0 ? `${state.userEquipment.length} selected` : 'Bodyweight only'}
+          onClick={() => dispatch({ type: 'SHOW_EQUIPMENT_SETUP' })}
+        />
+        <SettingRow
+          label="Design Program"
+          value="Open builder"
+          onClick={() => dispatch({ type: 'SHOW_PROGRAM_BUILDER' })}
+        />
+        <SettingRow
+          label="Rebuild Program"
+          value="Auto-generate"
+          onClick={() => dispatch({ type: 'REGENERATE_PROGRAM' })}
+        />
+        <SettingRow
+          label="Weight Units"
+          value={(state.settings?.units || 'lb') === 'kg' ? 'Kilograms (kg)' : 'Pounds (lb)'}
+          onClick={() => dispatch({ type: 'TOGGLE_SETTING', payload: 'units' })}
+        />
+      </div>
+      {PROGRESSION_MODELS[state.userProfile?.progressionModel] && (
+        <div style={styles.modelHint}>
+          {PROGRESSION_MODELS[state.userProfile.progressionModel].description}
+        </div>
+      )}
 
       {/* Exercise */}
       <div style={styles.sectionLabel}>Exercise</div>
       <div style={styles.card}>
-        {state.tier === 'standard' && (
-          <SettingRow
-            label="My Equipment"
-            value={state.userEquipment?.length > 0 ? `${state.userEquipment.length} selected` : 'Bodyweight only'}
-            onClick={() => dispatch({ type: 'SHOW_EQUIPMENT_SETUP' })}
-          />
-        )}
         <Toggle
           label="Audio coaching cues"
           enabled={state.settings?.audioEnabled ?? true}
@@ -135,7 +175,7 @@ export default function SettingsScreen() {
       <div style={styles.honorCard}>
         <div style={{ fontSize: 20, marginBottom: 8 }}>{'🎯'}</div>
         <div style={{ fontSize: 13, color: 'rgba(244,241,235,0.8)', lineHeight: 1.6, textAlign: 'center' }}>
-          Rep2Scroll works on the honor system — the discipline is yours. That's the point.
+          FormForge only counts reps your form earns. Quality first — strength follows.
         </div>
       </div>
 
@@ -246,6 +286,12 @@ const styles = {
     cursor: 'pointer',
     fontFamily: "'DM Sans', sans-serif",
     textDecoration: 'underline',
+  },
+  modelHint: {
+    margin: '8px 24px 0',
+    fontSize: 11,
+    color: '#9AA0B8',
+    lineHeight: 1.5,
   },
   honorCard: {
     margin: '20px 20px',

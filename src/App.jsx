@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider, AppContext } from './AppContext';
 import NavBar from './components/NavBar';
-import ScrollSessionAwayPopup from './components/ScrollSessionAwayPopup';
 import InstallPrompt from './components/InstallPrompt';
 // Screens
-import EarnScreen from './screens/EarnScreen';
+import HomeScreen from './screens/HomeScreen';
 import SummaryScreen from './screens/SummaryScreen';
 import LevelUpScreen from './screens/LevelUpScreen';
 import OnboardingScreen from './screens/OnboardingScreen';
@@ -14,12 +13,9 @@ import ProgressScreen from './screens/ProgressScreen';
 import RanksScreen from './screens/RanksScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import CameraScreen from './screens/CameraScreen';
-import PricingScreen from './screens/PricingScreen';
 import LegalScreen from './screens/LegalScreen';
-import ScrollingScreen from './screens/ScrollingScreen';
-import BodyPartScreen from './screens/BodyPartScreen';
-import ExercisePickerScreen from './screens/ExercisePickerScreen';
 import EquipmentScreen from './screens/EquipmentScreen';
+import ProgramBuilderScreen from './screens/ProgramBuilderScreen';
 import ExerciseHowToScreen from './screens/ExerciseHowToScreen';
 
 function AppShell() {
@@ -41,7 +37,7 @@ function AppShell() {
       />
     );
   }
-  // Camera overlay (shown over main app)
+  // Camera overlay (one set per camera run)
   if (state.showCamera) {
     return (
       <CameraScreen
@@ -55,33 +51,13 @@ function AppShell() {
   if (state.showLevelUp) {
     return <LevelUpScreen />;
   }
-
-  // ← NEW: Time's Up overlay — fires from any screen when scroll timer expires
-  if (state.scrollTimeUp) {
-    return (
-      <ScrollingScreen
-        onStop={() => dispatch({ type: 'STOP_SCROLLING' })}
-        minutes={0}
-        forceTimeUp={true}
-      />
-    );
-  }
-
-  // Equipment setup (shown after upgrading to standard)
+  // Equipment setup (from settings)
   if (state.showEquipmentSetup) {
     return <EquipmentScreen />;
   }
-  // Body part picker overlay (standard tier)
-  if (state.showBodyPartPicker) {
-    return <BodyPartScreen />;
-  }
-  // Exercise picker overlay (standard tier)
-  if (state.showExercisePicker) {
-    return <ExercisePickerScreen />;
-  }
-  // Pricing overlay
-  if (state.showPricing) {
-    return <PricingScreen onClose={() => dispatch({ type: 'DISMISS_PRICING' })} />;
+  // Program builder (design your own program)
+  if (state.showProgramBuilder) {
+    return <ProgramBuilderScreen />;
   }
   // Legal screens overlay
   if (state.showLegal) {
@@ -92,17 +68,12 @@ function AppShell() {
     <div className="app-shell">
       <div className="screen-container">
         <Routes>
-          <Route path="/" element={
-            state.showSummary ? <SummaryScreen /> :
-            state.isScrolling ? <ScrollingScreen onStop={() => dispatch({ type: 'STOP_SCROLLING' })} minutes={state.earnedMinutes} scrollEndTime={state.scrollEndTime} /> :
-            <EarnScreen />
-          } />
+          <Route path="/" element={state.showSummary ? <SummaryScreen /> : <HomeScreen />} />
           <Route path="/progress" element={<ProgressScreen />} />
           <Route path="/ranks" element={<RanksScreen />} />
           <Route path="/settings" element={<SettingsScreen />} />
         </Routes>
       </div>
-      <ScrollSessionAwayPopup />
       <NavBar />
       <InstallPrompt />
     </div>
@@ -118,4 +89,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-

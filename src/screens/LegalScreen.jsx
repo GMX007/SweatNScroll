@@ -22,11 +22,11 @@ export default function LegalScreen({ type = 'privacy', onClose }) {
         {isPrivacy ? (
           <>
             <Section title="What We Collect">
-              Rep2Scroll stores your exercise data (reps completed, form scores, session history, XP, and level progress) locally on your device using browser storage. If you create an account, basic profile information (email, display name) is stored on our servers to enable leaderboard features.
+              FormForge stores your exercise data (reps completed, form scores, session history, XP, and level progress) locally on your device using browser storage. If you create an account, basic profile information (email, display name) is stored on our servers to enable leaderboard features.
             </Section>
 
             <Section title="Camera & Video Data">
-              Rep2Scroll uses your device camera to verify exercise form in real time using TensorFlow.js MoveNet. All pose detection processing happens entirely on your device. No video or image data is ever recorded, stored, transmitted, or sent to any server. We never have access to your camera feed.
+              FormForge uses your device camera to verify exercise form in real time using TensorFlow.js MoveNet. All pose detection processing happens entirely on your device. No video or image data is ever recorded, stored, transmitted, or sent to any server. We never have access to your camera feed.
             </Section>
 
             <Section title="What We Don't Collect">
@@ -34,7 +34,7 @@ export default function LegalScreen({ type = 'privacy', onClose }) {
             </Section>
 
             <Section title="Payment Data">
-              Purchases and subscriptions on iOS are processed by Apple through the App Store and your Apple ID. Rep2Scroll does not collect or store your full credit card number, CVV, or banking details. Apple handles payment processing and related billing data under Apple's terms and privacy policy.
+              Purchases and subscriptions on iOS are processed by Apple through the App Store and your Apple ID. FormForge does not collect or store your full credit card number, CVV, or banking details. Apple handles payment processing and related billing data under Apple's terms and privacy policy.
             </Section>
 
             <Section title="Analytics">
@@ -42,26 +42,26 @@ export default function LegalScreen({ type = 'privacy', onClose }) {
             </Section>
 
             <Section title="Data Deletion">
-              You can delete all your local data at any time by clearing your browser's site data for Rep2Scroll. To delete your account and server-side data, contact support and we will remove everything within 30 days.
+              You can delete all your local data at any time by clearing your browser's site data for FormForge. To delete your account and server-side data, contact support and we will remove everything within 30 days.
             </Section>
 
           </>
         ) : (
           <>
             <Section title="Acceptance">
-              By using Rep2Scroll, you agree to these Terms of Service. If you do not agree, do not use the app.
+              By using FormForge, you agree to these Terms of Service. If you do not agree, do not use the app.
             </Section>
 
-            <Section title="What Rep2Scroll Is">
-              Rep2Scroll is a fitness motivation app that uses AI-assisted exercise form verification. It is not a medical device, personal trainer, or healthcare provider. The AI provides guidance but may not catch all form issues.
+            <Section title="What FormForge Is">
+              FormForge is a fitness motivation app that uses AI-assisted exercise form verification. It is not a medical device, personal trainer, or healthcare provider. The AI provides guidance but may not catch all form issues.
             </Section>
 
             <Section title="Exercise Risk">
-              Exercise carries inherent risk of injury. You are solely responsible for your own safety. Consult a healthcare provider before starting any exercise program. Stop immediately if you experience pain or discomfort. Rep2Scroll is not liable for any injuries sustained while using the app.
+              Exercise carries inherent risk of injury. You are solely responsible for your own safety. Consult a healthcare provider before starting any exercise program. Stop immediately if you experience pain or discomfort. FormForge is not liable for any injuries sustained while using the app.
             </Section>
 
             <Section title="Honor System">
-              Rep2Scroll operates on the honor system for social media time management. The app provides timers and reminders but cannot enforce screen time limits at the operating system level. The discipline is yours.
+              FormForge operates on the honor system for social media time management. The app provides timers and reminders but cannot enforce screen time limits at the operating system level. The discipline is yours.
             </Section>
 
             <Section title="Subscriptions">

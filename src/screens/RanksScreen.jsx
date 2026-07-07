@@ -5,14 +5,14 @@ import { fetchLeaderboardProfiles, isSocialBackendConfigured } from '../services
 
 // In production this list comes from backend + auth.
 const communityUsers = [
-  { code: 'SNS-IRON01', name: 'IronMike', xp: 20000, allTimeReps: 14520, weeklyReps: 310, streak: 89 },
-  { code: 'SNS-SQEE02', name: 'SweatQueen', xp: 12000, allTimeReps: 12340, weeklyReps: 420, streak: 72 },
-  { code: 'SNS-REPK03', name: 'RepKing', xp: 8000, allTimeReps: 10890, weeklyReps: 280, streak: 61 },
-  { code: 'SNS-CORE04', name: 'CoreCrusher', xp: 5500, allTimeReps: 9200, weeklyReps: 195, streak: 54 },
-  { code: 'SNS-PLNK05', name: 'PlankMaster', xp: 3500, allTimeReps: 7600, weeklyReps: 350, streak: 45 },
-  { code: 'SNS-GAIN06', name: 'GainzGuru', xp: 2000, allTimeReps: 6100, weeklyReps: 150, streak: 38 },
-  { code: 'SNS-PUSH07', name: 'PushPro', xp: 1000, allTimeReps: 4800, weeklyReps: 220, streak: 29 },
-  { code: 'SNS-SQAT08', name: 'SquatStar', xp: 1000, allTimeReps: 3950, weeklyReps: 180, streak: 22 },
+  { code: 'FF-IRON01', name: 'IronMike', xp: 20000, allTimeReps: 14520, weeklyReps: 310, streak: 89 },
+  { code: 'FF-SQEE02', name: 'SweatQueen', xp: 12000, allTimeReps: 12340, weeklyReps: 420, streak: 72 },
+  { code: 'FF-REPK03', name: 'RepKing', xp: 8000, allTimeReps: 10890, weeklyReps: 280, streak: 61 },
+  { code: 'FF-CORE04', name: 'CoreCrusher', xp: 5500, allTimeReps: 9200, weeklyReps: 195, streak: 54 },
+  { code: 'FF-PLNK05', name: 'PlankMaster', xp: 3500, allTimeReps: 7600, weeklyReps: 350, streak: 45 },
+  { code: 'FF-GAIN06', name: 'GainzGuru', xp: 2000, allTimeReps: 6100, weeklyReps: 150, streak: 38 },
+  { code: 'FF-PUSH07', name: 'PushPro', xp: 1000, allTimeReps: 4800, weeklyReps: 220, streak: 29 },
+  { code: 'FF-SQAT08', name: 'SquatStar', xp: 1000, allTimeReps: 3950, weeklyReps: 180, streak: 22 },
 ];
 
 const TABS = ['All Time', 'This Week', 'Friends'];
@@ -308,7 +308,7 @@ export default function RanksScreen() {
         <div style={{ textAlign: 'center', padding: '40px 20px' }}>
           <div style={{ fontSize: 32, marginBottom: 12 }}>{'👥'}</div>
           <div style={{ fontSize: 14, color: '#9AA0B8' }}>
-            No friends yet. Share Rep2Scroll to compete with friends!
+            No friends yet. Share FormForge to compete with friends!
           </div>
         </div>
       )}

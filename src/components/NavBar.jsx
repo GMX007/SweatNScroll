@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const tabs = [
-  { path: '/', label: 'Earn', emoji: '💪' },
+  { path: '/', label: 'Train', emoji: '💪' },
   { path: '/progress', label: 'Progress', emoji: '📊' },
   { path: '/ranks', label: 'Ranks', emoji: '🏆' },
   { path: '/settings', label: 'Settings', emoji: '⚙️' },
@@ -83,4 +83,4 @@ const styles = {
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
-};
+};

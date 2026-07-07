@@ -5,40 +5,64 @@ import { AppContext } from '../AppContext';
 
 const steps = [
   {
+    id: 'gender',
     question: 'Pick your look! ✨',
-    subtitle: 'Watch your avatar glow up as you level up!',
+    subtitle: 'Your avatar levels up as you do',
     options: [
-      { emoji: '🙋‍♂️', text: 'Male' },
-      { emoji: '🙋‍♀️', text: 'Female' },
+      { emoji: '🙋‍♂️', text: 'Male', value: 'male' },
+      { emoji: '🙋‍♀️', text: 'Female', value: 'female' },
     ],
   },
   {
-    question: "What brings you here? 💭",
-    subtitle: 'No wrong answers — we just wanna know you!',
+    id: 'goal',
+    question: "What's the goal? 🎯",
+    subtitle: 'This shapes your whole program',
     options: [
-      { emoji: '📱', text: 'Less doomscrolling' },
-      { emoji: '💪', text: 'Build a sweat habit' },
-      { emoji: '⚖️', text: 'Both, honestly!' },
+      { emoji: '🏋️', text: 'Get stronger', value: 'strength' },
+      { emoji: '💪', text: 'Build muscle', value: 'muscle' },
+      { emoji: '⚡', text: 'General fitness', value: 'general' },
     ],
   },
   {
-    question: 'How active are you rn? 🤔',
-    subtitle: "Be honest — we won't judge (much)",
+    id: 'experience',
+    question: 'Training experience? 🤔',
+    subtitle: 'Be honest — the AI will notice anyway',
     options: [
-      { emoji: '🛋️', text: 'Total couch potato' },
-      { emoji: '🚶', text: 'Moving 1-2 days/week' },
-      { emoji: '🏃', text: 'Solid 3-4 days/week' },
-      { emoji: '⚡', text: 'Beast mode 5+ days' },
+      { emoji: '🌱', text: 'New to training', value: 'beginner' },
+      { emoji: '🏃', text: 'Train on and off', value: 'intermediate' },
+      { emoji: '🔥', text: 'Train consistently', value: 'advanced' },
     ],
   },
   {
-    question: 'How much scroll time to earn? 📱',
-    subtitle: "Gotta sweat for every minute!",
+    id: 'daysPerWeek',
+    question: 'Days per week? 📅',
+    subtitle: 'Your split is built around this',
     options: [
-      { emoji: '⏰', text: '15 minutes' },
-      { emoji: '⏱️', text: '30 minutes' },
-      { emoji: '🕐', text: '45 minutes' },
-      { emoji: '🕒', text: '60 minutes (the max!)' },
+      { emoji: '2️⃣', text: '2 days', value: 2 },
+      { emoji: '3️⃣', text: '3 days', value: 3 },
+      { emoji: '4️⃣', text: '4 days', value: 4 },
+      { emoji: '5️⃣', text: '5 days', value: 5 },
+    ],
+  },
+  {
+    id: 'programMode',
+    question: 'How do you want your program? 🧩',
+    subtitle: 'You can switch anytime',
+    options: [
+      { emoji: '🤖', text: 'Generate it for me', value: 'generate' },
+      { emoji: '🛠️', text: "I'll design my own", value: 'build' },
+    ],
+  },
+  {
+    id: 'equipment',
+    question: 'What equipment do you have? 🏠',
+    subtitle: 'Select all that apply — bodyweight is always included',
+    multi: true,
+    options: [
+      { emoji: '🏋️', text: 'Dumbbells', value: 'Dumbbells' },
+      { emoji: '🔔', text: 'Kettlebell', value: 'Kettlebell' },
+      { emoji: '🟡', text: 'Resistance Bands', value: 'Resistance Bands' },
+      { emoji: '💪', text: 'Pull-up Bar', value: 'Pull-up Bar' },
     ],
   },
 ];
@@ -47,7 +71,7 @@ export default function OnboardingScreen() {
   const { dispatch } = useContext(AppContext);
   const [showWelcome, setShowWelcome] = useState(true);
   const [currentStep, setCurrentStep] = useState(0);
-  const [selections, setSelections] = useState({});
+  const [selections, setSelections] = useState({ equipment: [] });
 
   // ─── WELCOME SPLASH ───
   if (showWelcome) {
@@ -55,28 +79,27 @@ export default function OnboardingScreen() {
       <div style={welcomeStyles.screen}>
         <div style={welcomeStyles.glow} />
         <div style={welcomeStyles.content}>
-          {/* Logo */}
-          <div style={welcomeStyles.logoIcon}>{'💪'}</div>
-          <div style={welcomeStyles.logo}>REP2SCROLL</div>
-          <div style={welcomeStyles.tagline}>Sweat first. Scroll later. ✨</div>
+          <div style={welcomeStyles.logoIcon}>{'📷'}</div>
+          <div style={welcomeStyles.logo}>FORMFORGE</div>
+          <div style={welcomeStyles.tagline}>Programs built by your form. ✨</div>
 
-          {/* Description */}
           <div style={welcomeStyles.descCard}>
             <div style={welcomeStyles.descText}>
-              Do a quick workout, earn your phone time. Our AI checks your form so you can't fake it — but you totally got this! 💪
+              Your camera is your coach. FormForge watches every rep, only counts the clean ones,
+              and uses your real form data to build and adapt your training program. Move better,
+              get stronger. 💪
             </div>
           </div>
 
-          {/* Feature pills */}
           <div style={welcomeStyles.features}>
-            <div style={welcomeStyles.featurePill}>{'📷'} AI form checks</div>
-            <div style={welcomeStyles.featurePill}>{'🔥'} Streaks</div>
+            <div style={welcomeStyles.featurePill}>{'📷'} Real-time form AI</div>
+            <div style={welcomeStyles.featurePill}>{'🧠'} Adaptive programs</div>
+            <div style={welcomeStyles.featurePill}>{'🏠'} Any equipment</div>
             <div style={welcomeStyles.featurePill}>{'🏆'} Leaderboards</div>
-            <div style={welcomeStyles.featurePill}>{'⏱️'} Earn scroll time</div>
           </div>
 
           <Button onClick={() => setShowWelcome(false)}>
-            Let's Go! ✨
+            Build My Program ✨
           </Button>
         </div>
       </div>
@@ -85,18 +108,43 @@ export default function OnboardingScreen() {
 
   // ─── ONBOARDING STEPS ───
   const step = steps[currentStep];
+  const currentValue = selections[step.id];
+  const hasSelection = step.multi ? true : currentValue !== undefined; // equipment can be empty
 
-  const handleSelect = (optionText) => {
-    setSelections(prev => ({ ...prev, [currentStep]: optionText }));
+  const handleSelect = (option) => {
+    if (step.multi) {
+      setSelections((prev) => {
+        const list = prev[step.id] || [];
+        const next = list.includes(option.value)
+          ? list.filter((v) => v !== option.value)
+          : [...list, option.value];
+        return { ...prev, [step.id]: next };
+      });
+    } else {
+      setSelections((prev) => ({ ...prev, [step.id]: option.value }));
+    }
   };
 
   const handleNext = () => {
     if (currentStep < steps.length - 1) {
-      setCurrentStep(prev => prev + 1);
+      setCurrentStep((prev) => prev + 1);
     } else {
-      dispatch({ type: 'COMPLETE_ONBOARDING', payload: selections });
+      dispatch({
+        type: 'COMPLETE_ONBOARDING',
+        payload: {
+          gender: selections.gender,
+          goal: selections.goal,
+          experience: selections.experience,
+          daysPerWeek: selections.daysPerWeek,
+          programMode: selections.programMode || 'generate',
+          equipment: selections.equipment || [],
+        },
+      });
     }
   };
+
+  const isSelected = (option) =>
+    step.multi ? (selections[step.id] || []).includes(option.value) : currentValue === option.value;
 
   return (
     <div style={styles.screen}>
@@ -112,43 +160,39 @@ export default function OnboardingScreen() {
           ))}
         </div>
 
-        {/* Question */}
         <div style={styles.question}>{step.question}</div>
         <div style={styles.subtitle}>{step.subtitle}</div>
 
         {/* Avatar preview on gender step */}
-        {currentStep === 0 && selections[0] && (
+        {step.id === 'gender' && selections.gender && (
           <div style={{ display: 'flex', justifyContent: 'center', margin: '12px 0 8px' }}>
-            <LevelAvatar
-              level={1}
-              gender={selections[0] === 'Male' ? 'male' : 'female'}
-              size={100}
-            />
+            <LevelAvatar level={1} gender={selections.gender} size={100} />
           </div>
         )}
 
-        {/* Options */}
         {step.options.map((option, i) => {
-          const selected = selections[currentStep] === option.text;
+          const selected = isSelected(option);
           return (
-            <button key={`${currentStep}-${i}`} onClick={() => handleSelect(option.text)} style={{
+            <button key={`${currentStep}-${i}`} onClick={() => handleSelect(option)} style={{
               ...styles.optionBtn,
               background: selected ? 'rgba(232,83,58,0.12)' : 'rgba(255,255,255,0.04)',
               borderColor: selected ? 'rgba(232,83,58,0.4)' : 'rgba(255,255,255,0.08)',
             }}>
               <span style={{ fontSize: 20 }}>{option.emoji}</span>
               <span style={styles.optionText}>{option.text}</span>
-              {selected && (
-                <div style={styles.optionCheck}>{'✓'}</div>
-              )}
+              {selected && <div style={styles.optionCheck}>{'✓'}</div>}
             </button>
           );
         })}
+
+        {step.multi && (selections[step.id] || []).length === 0 && (
+          <div style={styles.multiHint}>No equipment? No problem — you'll get a full bodyweight program.</div>
+        )}
       </div>
 
       <div style={{ marginTop: 24 }}>
-        <Button onClick={handleNext} disabled={!selections[currentStep]}>
-          {currentStep < steps.length - 1 ? 'Continue →' : "Let's Go →"}
+        <Button onClick={handleNext} disabled={!hasSelection}>
+          {currentStep < steps.length - 1 ? 'Continue →' : 'Generate My Program →'}
         </Button>
       </div>
     </div>
@@ -183,10 +227,7 @@ const welcomeStyles = {
     position: 'relative',
     zIndex: 1,
   },
-  logoIcon: {
-    fontSize: 48,
-    marginBottom: 12,
-  },
+  logoIcon: { fontSize: 48, marginBottom: 12 },
   logo: {
     fontFamily: "'Bebas Neue', sans-serif",
     fontSize: 56,
@@ -241,9 +282,7 @@ const styles = {
     minHeight: '100%',
     padding: '40px 0 100px',
   },
-  content: {
-    padding: '20px 24px 0',
-  },
+  content: { padding: '20px 24px 0' },
   question: {
     fontFamily: "'Bebas Neue', sans-serif",
     fontSize: 26,
@@ -273,9 +312,6 @@ const styles = {
     fontFamily: "'DM Sans', sans-serif",
     transition: 'all 0.2s',
   },
-  optionSelected: {
-    /* now applied inline for reliable toggling */
-  },
   optionText: {
     fontSize: 14,
     fontWeight: 500,
@@ -291,5 +327,11 @@ const styles = {
     justifyContent: 'center',
     fontSize: 11,
     color: 'white',
+  },
+  multiHint: {
+    fontSize: 11,
+    color: '#9AA0B8',
+    marginTop: 4,
+    textAlign: 'center',
   },
 };

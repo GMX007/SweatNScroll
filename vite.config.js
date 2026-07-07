@@ -18,9 +18,9 @@ export default defineConfig({
       },
       includeAssets: ['favicon.png', 'apple-touch-icon.png'],
       manifest: {
-        name: 'Rep2Scroll',
-        short_name: 'Rep2Scroll',
-        description: 'Earn your scroll time. Every session. No exceptions.',
+        name: 'FormForge',
+        short_name: 'FormForge',
+        description: 'AI form coaching that builds your program. Every rep watched, every block earned.',
         theme_color: '#E8533A',
         background_color: '#0F1647',
         display: 'standalone',

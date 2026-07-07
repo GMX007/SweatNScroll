@@ -1,5 +1,5 @@
 /**
- * Rep2Scroll Design System Tokens
+ * FormForge Design System Tokens
  * Matches the UI prototype exactly
  */
 
