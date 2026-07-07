@@ -68,12 +68,12 @@ export default function SummaryScreen() {
           <div style={styles.statKey}>Clean {set.isHold ? 'Seconds' : 'Reps'}</div>
         </div>
         <div style={styles.statCard}>
-          <div style={{ ...styles.statVal, color: '#E8533A' }}>{set.flaggedReps}</div>
+          <div style={{ ...styles.statVal, color: '#E8533A' }}>{set.manual ? '—' : set.flaggedReps}</div>
           <div style={styles.statKey}>Flagged</div>
         </div>
         <div style={styles.statCard}>
-          <div style={styles.statVal}>{set.formScore}%</div>
-          <div style={styles.statKey}>Form Score</div>
+          <div style={styles.statVal}>{set.manual || set.formScore == null ? '✍️' : `${set.formScore}%`}</div>
+          <div style={styles.statKey}>{set.manual || set.formScore == null ? 'Logged Manually' : 'Form Score'}</div>
         </div>
         <div style={styles.statCard}>
           <div style={styles.statVal}>{set.personalBest ? '🏆' : '—'}</div>
@@ -107,7 +107,7 @@ export default function SummaryScreen() {
       )}
 
       {/* Form tip */}
-      {!workoutDone && (
+      {!workoutDone && !set.manual && (
         <>
           <div style={styles.formTip}>
             {'💡'} {set.topNote ? `Form tip: ${set.topNote}` : 'Form tip: Great control — keep that pace.'}

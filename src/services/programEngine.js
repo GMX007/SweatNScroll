@@ -1,5 +1,5 @@
 /**
- * FormForge Program Engine
+ * FormForged Program Engine
  * Generates equipment-aware programs, supports user-designed programs
  * (double / triple / %1RM progression), and adapts everything using
  * real form data from the camera.
@@ -32,7 +32,7 @@ export function getExerciseById(id) {
 
 export function isWeighted(exercise) {
   if (!exercise) return false;
-  return ['Dumbbells', 'Kettlebell'].includes(exercise.equipment);
+  return ['Dumbbells', 'Kettlebell', 'Barbell'].includes(exercise.equipment);
 }
 
 function allowedByEquipment(exercise, equipment = []) {
@@ -250,18 +250,22 @@ export function progressCustomItem(item, results, model, formProfile = {}) {
   const weighted = isWeighted(exercise);
   const repMax = item.repMax ?? 12;
   const repMin = item.repMin ?? 8;
-  const formAvg = Math.round(results.reduce((s, r) => s + (r.formScore || 0), 0) / results.length);
+  // Manual sets have no form score — progression then runs on reps alone.
+  const scored = results.filter((r) => r.formScore != null);
+  const formAvg = scored.length > 0
+    ? Math.round(scored.reduce((s, r) => s + r.formScore, 0) / scored.length)
+    : null;
   const allTopped = results.every((r) => r.reps >= repMax);
 
   // Form gate first: bad form never progresses, and sheds load.
-  if (formAvg < FORM_THRESHOLDS.hold) {
+  if (formAvg !== null && formAvg < FORM_THRESHOLDS.hold) {
     if (weighted && item.weightLb) {
       return { ...item, weightLb: roundWeight(item.weightLb * 0.9), lastAdapt: 'regress' };
     }
     return { ...item, curReps: Math.max(repMin, (item.curReps ?? repMax) - 2), lastAdapt: 'regress' };
   }
 
-  const formEarned = formAvg >= FORM_THRESHOLDS.progress;
+  const formEarned = formAvg === null ? true : formAvg >= FORM_THRESHOLDS.progress;
 
   if (model === 'double') {
     if (allTopped && formEarned) {

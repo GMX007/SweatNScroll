@@ -134,7 +134,7 @@ export default function ProgramBuilderScreen() {
   return (
     <div style={styles.screen}>
       <div style={styles.header}>
-        <span style={styles.logo}>FORMFORGE</span>
+        <span style={styles.logo}>FORMFORGED</span>
         <button style={styles.closeBtn} onClick={() => dispatch({ type: 'DISMISS_PROGRAM_BUILDER' })}>✕</button>
       </div>
 

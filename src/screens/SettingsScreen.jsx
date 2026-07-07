@@ -137,6 +137,11 @@ export default function SettingsScreen() {
       <div style={styles.sectionLabel}>Exercise</div>
       <div style={styles.card}>
         <Toggle
+          label="AI form check (camera)"
+          enabled={state.settings?.formCheckEnabled ?? true}
+          onToggle={() => dispatch({ type: 'TOGGLE_SETTING', payload: 'formCheckEnabled' })}
+        />
+        <Toggle
           label="Audio coaching cues"
           enabled={state.settings?.audioEnabled ?? true}
           onToggle={() => dispatch({ type: 'TOGGLE_SETTING', payload: 'audioEnabled' })}
@@ -175,7 +180,7 @@ export default function SettingsScreen() {
       <div style={styles.honorCard}>
         <div style={{ fontSize: 20, marginBottom: 8 }}>{'🎯'}</div>
         <div style={{ fontSize: 13, color: 'rgba(244,241,235,0.8)', lineHeight: 1.6, textAlign: 'center' }}>
-          FormForge only counts reps your form earns. Quality first — strength follows.
+          FormForged only counts reps your form earns. Quality first — strength follows.
         </div>
       </div>
 

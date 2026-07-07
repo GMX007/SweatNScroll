@@ -1,5 +1,5 @@
 /**
- * FormForge Gamification Levels
+ * FormForged Gamification Levels
  * Free tier: levels 1-3 only
  * Standard tier: levels 1-10
  */

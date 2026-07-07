@@ -1,5 +1,5 @@
 /**
- * FormForge Notification Service
+ * FormForged Notification Service
  * Manages permission requests and scroll timer notifications via the service worker.
  */
 
@@ -90,7 +90,7 @@ export function showScrollTimeUpPageNotification() {
   if (typeof document !== 'undefined' && document.hidden) return;
   try {
     new Notification("Time's up! ⏰", {
-      body: 'Your scroll session ended. Open FormForge to earn more.',
+      body: 'Your scroll session ended. Open FormForged to earn more.',
       tag: 'scroll-timer',
       requireInteraction: true,
     });

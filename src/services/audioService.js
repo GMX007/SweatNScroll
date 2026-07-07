@@ -1,5 +1,5 @@
 /**
- * FormForge Audio Service
+ * FormForged Audio Service
  * Uses Web Audio API oscillator-based sounds — no external files needed.
  * All sounds are short, satisfying, and gym-themed.
  */
@@ -37,7 +37,7 @@ function playTone(frequency, duration, type = 'sine', volume = 0.3, rampDown = t
     osc.stop(ctx.currentTime + duration);
   } catch (err) {
     // Silently fail — audio is non-critical
-    console.warn('[FormForge] Audio failed:', err.message);
+    console.warn('[FormForged] Audio failed:', err.message);
   }
 }
 
@@ -74,7 +74,7 @@ export function playRepComplete() {
     osc2.start(now + 0.06);
     osc2.stop(now + 0.15);
   } catch (err) {
-    console.warn('[FormForge] Audio failed:', err.message);
+    console.warn('[FormForged] Audio failed:', err.message);
   }
 }
 
@@ -100,7 +100,7 @@ export function playSetComplete() {
       osc.stop(now + i * 0.08 + 0.4);
     });
   } catch (err) {
-    console.warn('[FormForge] Audio failed:', err.message);
+    console.warn('[FormForged] Audio failed:', err.message);
   }
 }
 
@@ -142,7 +142,7 @@ export function playLevelUp() {
       osc.stop(now + chordDelay + 0.8);
     });
   } catch (err) {
-    console.warn('[FormForge] Audio failed:', err.message);
+    console.warn('[FormForged] Audio failed:', err.message);
   }
 }
 
@@ -183,7 +183,7 @@ export function playFormBreak() {
     osc2.start(now + 0.12);
     osc2.stop(now + 0.3);
   } catch (err) {
-    console.warn('[FormForge] Audio failed:', err.message);
+    console.warn('[FormForged] Audio failed:', err.message);
   }
 }
 
@@ -216,6 +216,6 @@ export function playPersonalBest() {
       osc.stop(now + i * 0.06 + 0.2);
     });
   } catch (err) {
-    console.warn('[FormForge] Audio failed:', err.message);
+    console.warn('[FormForged] Audio failed:', err.message);
   }
 }

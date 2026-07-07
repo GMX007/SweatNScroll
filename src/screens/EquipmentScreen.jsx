@@ -27,7 +27,7 @@ export default function EquipmentScreen() {
       <div style={styles.bgGlow} />
 
       <div style={styles.content}>
-        <div style={styles.logo}>FORMFORGE</div>
+        <div style={styles.logo}>FORMFORGED</div>
         <div style={styles.badge}>STANDARD</div>
         <div style={styles.title}>WHAT EQUIPMENT DO YOU HAVE?</div>
         <div style={styles.subtitle}>

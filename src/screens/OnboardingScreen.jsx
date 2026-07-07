@@ -61,6 +61,7 @@ const steps = [
     options: [
       { emoji: '🏋️', text: 'Dumbbells', value: 'Dumbbells' },
       { emoji: '🔔', text: 'Kettlebell', value: 'Kettlebell' },
+      { emoji: '🏋️', text: 'Barbell', value: 'Barbell' },
       { emoji: '🟡', text: 'Resistance Bands', value: 'Resistance Bands' },
       { emoji: '💪', text: 'Pull-up Bar', value: 'Pull-up Bar' },
     ],
@@ -80,12 +81,12 @@ export default function OnboardingScreen() {
         <div style={welcomeStyles.glow} />
         <div style={welcomeStyles.content}>
           <div style={welcomeStyles.logoIcon}>{'📷'}</div>
-          <div style={welcomeStyles.logo}>FORMFORGE</div>
+          <div style={welcomeStyles.logo}>FORMFORGED</div>
           <div style={welcomeStyles.tagline}>Programs built by your form. ✨</div>
 
           <div style={welcomeStyles.descCard}>
             <div style={welcomeStyles.descText}>
-              Your camera is your coach. FormForge watches every rep, only counts the clean ones,
+              Your camera is your coach. FormForged watches every rep, only counts the clean ones,
               and uses your real form data to build and adapt your training program. Move better,
               get stronger. 💪
             </div>

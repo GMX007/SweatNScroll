@@ -308,7 +308,7 @@ export default function RanksScreen() {
         <div style={{ textAlign: 'center', padding: '40px 20px' }}>
           <div style={{ fontSize: 32, marginBottom: 12 }}>{'👥'}</div>
           <div style={{ fontSize: 14, color: '#9AA0B8' }}>
-            No friends yet. Share FormForge to compete with friends!
+            No friends yet. Share FormForged to compete with friends!
           </div>
         </div>
       )}

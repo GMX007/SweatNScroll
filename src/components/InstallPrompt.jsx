@@ -11,7 +11,7 @@ export default function InstallPrompt() {
   const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
-    const dismissCount = parseInt(localStorage.getItem('formforge_install_dismiss') || '0', 10);
+    const dismissCount = parseInt(localStorage.getItem('formforged_install_dismiss') || '0', 10);
     if (dismissCount >= 2) { setDismissed(true); return; }
     if (window.matchMedia('(display-mode: standalone)').matches) { setDismissed(true); return; }
 
@@ -43,8 +43,8 @@ export default function InstallPrompt() {
   };
 
   const handleDismiss = () => {
-    const current = parseInt(localStorage.getItem('formforge_install_dismiss') || '0', 10);
-    localStorage.setItem('formforge_install_dismiss', String(current + 1));
+    const current = parseInt(localStorage.getItem('formforged_install_dismiss') || '0', 10);
+    localStorage.setItem('formforged_install_dismiss', String(current + 1));
     setShowBanner(false);
     if (current + 1 >= 2) setDismissed(true);
   };
@@ -54,9 +54,9 @@ export default function InstallPrompt() {
   return (
     <div style={styles.banner}>
       <div style={styles.topRow}>
-        <img src="/icon-192.png" alt="FormForge icon" style={styles.appIcon} />
+        <img src="/icon-192.png" alt="FormForged icon" style={styles.appIcon} />
         <div style={styles.text}>
-          <div style={styles.title}>Add FormForge to your phone!</div>
+          <div style={styles.title}>Add FormForged to your phone!</div>
           <div style={styles.sub}>
             {isIOS
               ? "Tap the Share button (the square with an arrow) at the bottom of Safari, then tap \"Add to Home Screen\""

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 /**
- * FormForge button — primary (orange) or secondary (ghost).
+ * FormForged button — primary (orange) or secondary (ghost).
  */
 export default function Button({ children, variant = 'primary', onClick, style = {}, disabled = false }) {
   const [hover, setHover] = useState(false);

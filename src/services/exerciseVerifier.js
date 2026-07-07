@@ -1,5 +1,5 @@
 /**
- * FormForge Exercise Verifier
+ * FormForged Exercise Verifier
  * Applies exercise-specific form rules to MoveNet keypoints.
  * Every exercise in `exercises.js` maps here (bodyweight + equipment).
  * Equipment moves use closest pose heuristics (elbow angle, squat, hinge, etc.).
@@ -765,6 +765,24 @@ export function verifyExercise(exerciseId, pose) {
     // Resistance band — horizontal spread (front view)
     case 'band-pull-apart':
       return verifyBandPullApart(pose);
+
+    // Barbell — mapped onto squat / hinge / press primitives
+    case 'bb-back-squat':
+      return verifySquat(pose);
+    case 'bb-lunge':
+      return verifyLunge(pose);
+    case 'bb-deadlift':
+      return verifyHipHingeReps(pose, { hingeDeep: 148, hingeTall: 172 });
+    case 'bb-romanian-deadlift':
+      return verifyHipHingeReps(pose, { hingeDeep: 152, hingeTall: 172 });
+    case 'bb-bench-press':
+      return verifyElbowFlexCycle(pose, { contractBelow: 95, extendAbove: 150 });
+    case 'bb-overhead-press':
+      return verifyElbowFlexCycle(pose, { contractBelow: 100, extendAbove: 152 });
+    case 'bb-row':
+      return verifyElbowFlexCycle(pose, { contractBelow: 92, extendAbove: 145 });
+    case 'bb-hip-thrust':
+      return verifyGluteBridge(pose);
 
     // Complex flow — coarse rep count from hip movement
     case 'kb-turkish-getup':

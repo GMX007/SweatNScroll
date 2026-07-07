@@ -19,7 +19,7 @@ export default function HomeScreen() {
 
       {/* Header */}
       <div style={styles.header}>
-        <span style={styles.logo}>FORMFORGE</span>
+        <span style={styles.logo}>FORMFORGED</span>
         <LevelBadge level={level} />
       </div>
 

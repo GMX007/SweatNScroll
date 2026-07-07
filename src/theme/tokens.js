@@ -1,5 +1,5 @@
 /**
- * FormForge Design System Tokens
+ * FormForged Design System Tokens
  * Matches the UI prototype exactly
  */
 

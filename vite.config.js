@@ -18,8 +18,8 @@ export default defineConfig({
       },
       includeAssets: ['favicon.png', 'apple-touch-icon.png'],
       manifest: {
-        name: 'FormForge',
-        short_name: 'FormForge',
+        name: 'FormForged',
+        short_name: 'FormForged',
         description: 'AI form coaching that builds your program. Every rep watched, every block earned.',
         theme_color: '#E8533A',
         background_color: '#0F1647',

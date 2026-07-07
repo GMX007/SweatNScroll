@@ -1,5 +1,5 @@
 /**
- * FormForge Exercise Library
+ * FormForged Exercise Library
  * Free tier: Push-up, Squat, Plank
  * Standard tier: 65+ additional exercises (abbreviated here, expand as needed)
  */
@@ -1401,6 +1401,287 @@ export const exercises = [
       keypointsNeeded: ['left_shoulder', 'left_elbow', 'left_wrist'],
     },
   },
+
+  // ── BARBELL EXERCISES ──
+  {
+    id: 'bb-back-squat',
+    name: 'Barbell Back Squat',
+    tier: 'standard',
+    type: 'reps',
+    bodyArea: ['Lower Body'],
+    difficulty: 'Advanced',
+    equipment: 'Barbell',
+    emoji: '🏋️',
+    defaultTarget: 8,
+    formPoints: [
+      'Bar rests on upper traps, hands just outside shoulders',
+      'Feet shoulder-width, toes slightly out, brace before descending',
+      'Lower until hip crease reaches knee level or below',
+      'Knees track in line with toes throughout',
+      'Drive through mid-foot, chest up, full hip extension at top',
+    ],
+    aiChecks: [
+      'Hip crease must reach knee level at bottom',
+      'Knee tracking over toes — no caving inward',
+      'Torso angle consistent — no collapsing forward',
+    ],
+    commonMistakes: [
+      'Cutting depth as weight gets heavy',
+      'Knees caving inward on the way up',
+      'Chest collapsing forward out of the hole',
+    ],
+    cameraPlacement: 'Side view, phone at hip height, full body visible',
+    easierVariation: 'Dumbbell Goblet Squat',
+    detection: {
+      downAngle: 90,
+      upAngle: 165,
+      hipTolerance: 20,
+      keypointsNeeded: ['left_hip', 'left_knee', 'left_ankle', 'left_shoulder'],
+    },
+  },
+  {
+    id: 'bb-deadlift',
+    name: 'Barbell Deadlift',
+    tier: 'standard',
+    type: 'reps',
+    bodyArea: ['Lower Body', 'Back', 'Full Body'],
+    difficulty: 'Advanced',
+    equipment: 'Barbell',
+    emoji: '🏋️',
+    defaultTarget: 6,
+    formPoints: [
+      'Bar over mid-foot, shins close to the bar',
+      'Flat back, chest up, shoulders slightly ahead of the bar',
+      'Push the floor away — hips and shoulders rise together',
+      'Bar stays close to the body the whole way up',
+      'Lock out tall at the top: hips through, shoulders back',
+    ],
+    aiChecks: [
+      'Hips and shoulders rise together — no early hip shoot',
+      'Full hip extension at lockout',
+      'Back stays flat — no rounding through the pull',
+    ],
+    commonMistakes: [
+      'Rounding the lower back off the floor',
+      'Hips shooting up first, turning it into a stiff-leg pull',
+      'Bar drifting away from the body',
+    ],
+    cameraPlacement: 'Side view, phone at knee height, full body visible',
+    easierVariation: 'Kettlebell Deadlift',
+    detection: {
+      hipTolerance: 15,
+      keypointsNeeded: ['left_shoulder', 'left_hip', 'left_knee', 'left_ankle'],
+    },
+  },
+  {
+    id: 'bb-romanian-deadlift',
+    name: 'Barbell Romanian Deadlift',
+    tier: 'standard',
+    type: 'reps',
+    bodyArea: ['Lower Body', 'Back'],
+    difficulty: 'Intermediate',
+    equipment: 'Barbell',
+    emoji: '🏋️',
+    defaultTarget: 8,
+    formPoints: [
+      'Start standing tall, bar at hip height, slight knee bend',
+      'Push hips back — bar slides down the thighs',
+      'Lower until you feel a hamstring stretch (mid-shin max)',
+      'Keep the back flat and bar close throughout',
+      'Squeeze glutes to stand tall — do not hyperextend',
+    ],
+    aiChecks: [
+      'Hip hinge depth reached each rep',
+      'Back stays flat during the hinge',
+      'Full return to standing on every rep',
+    ],
+    commonMistakes: [
+      'Bending the knees too much — squatting instead of hinging',
+      'Rounding the back at the bottom',
+      'Bar drifting away from the legs',
+    ],
+    cameraPlacement: 'Side view, phone at hip height, full body visible',
+    easierVariation: 'Dumbbell Romanian Deadlift',
+    detection: {
+      hipTolerance: 15,
+      keypointsNeeded: ['left_shoulder', 'left_hip', 'left_knee', 'left_ankle'],
+    },
+  },
+  {
+    id: 'bb-bench-press',
+    name: 'Barbell Bench Press',
+    tier: 'standard',
+    type: 'reps',
+    bodyArea: ['Chest', 'Upper Body'],
+    difficulty: 'Intermediate',
+    equipment: 'Barbell',
+    emoji: '🏋️',
+    defaultTarget: 8,
+    formPoints: [
+      'Eyes under the bar, feet planted, slight arch in lower back',
+      'Grip slightly wider than shoulder-width',
+      'Lower the bar with control to mid-chest',
+      'Touch the chest lightly — no bouncing',
+      'Press up and slightly back to full lockout',
+    ],
+    aiChecks: [
+      'Bar reaches chest level each rep',
+      'Full elbow lockout at the top',
+      'Controlled tempo — no bouncing reps',
+    ],
+    commonMistakes: [
+      'Bouncing the bar off the chest',
+      'Cutting the range short of lockout',
+      'Flaring elbows straight out at 90 degrees',
+    ],
+    cameraPlacement: 'Side view, phone at bench height, upper body and arms visible',
+    easierVariation: 'Dumbbell Chest Press',
+    detection: {
+      downAngle: 95,
+      upAngle: 155,
+      keypointsNeeded: ['left_shoulder', 'left_elbow', 'left_wrist'],
+    },
+  },
+  {
+    id: 'bb-overhead-press',
+    name: 'Barbell Overhead Press',
+    tier: 'standard',
+    type: 'reps',
+    bodyArea: ['Shoulders', 'Upper Body'],
+    difficulty: 'Intermediate',
+    equipment: 'Barbell',
+    emoji: '🏋️',
+    defaultTarget: 8,
+    formPoints: [
+      'Bar at collarbone, grip just outside shoulders',
+      'Brace core and glutes — no leaning back',
+      'Press straight up, moving the head back slightly',
+      'Finish with the bar over the mid-foot, arms locked',
+      'Lower with control back to the collarbone',
+    ],
+    aiChecks: [
+      'Full lockout overhead each rep',
+      'No excessive lower-back lean',
+      'Bar returns to shoulder level between reps',
+    ],
+    commonMistakes: [
+      'Turning it into a push press by using the legs',
+      'Leaning back and arching the lower back',
+      'Stopping short of full lockout',
+    ],
+    cameraPlacement: 'Side or front view, phone at chest height, full upper body visible',
+    easierVariation: 'Dumbbell Shoulder Press',
+    detection: {
+      downAngle: 100,
+      upAngle: 155,
+      keypointsNeeded: ['left_shoulder', 'left_elbow', 'left_wrist'],
+    },
+  },
+  {
+    id: 'bb-row',
+    name: 'Barbell Row',
+    tier: 'standard',
+    type: 'reps',
+    bodyArea: ['Back', 'Upper Body'],
+    difficulty: 'Intermediate',
+    equipment: 'Barbell',
+    emoji: '🏋️',
+    defaultTarget: 8,
+    formPoints: [
+      'Hinge to roughly 45 degrees, flat back, bar hanging at arm length',
+      'Pull the bar to the lower ribs / upper stomach',
+      'Squeeze shoulder blades together at the top',
+      'Lower with control — full arm extension each rep',
+      'Torso angle stays fixed — no heaving',
+    ],
+    aiChecks: [
+      'Bar reaches the torso each rep',
+      'Full arm extension at the bottom',
+      'Torso stays hinged — no standing up between reps',
+    ],
+    commonMistakes: [
+      'Using momentum and heaving the torso upright',
+      'Cutting range — not touching the torso',
+      'Rounding the lower back',
+    ],
+    cameraPlacement: 'Side view, phone at hip height, full body visible',
+    easierVariation: 'Dumbbell Bent-Over Row',
+    detection: {
+      downAngle: 92,
+      upAngle: 145,
+      keypointsNeeded: ['left_shoulder', 'left_elbow', 'left_wrist', 'left_hip'],
+    },
+  },
+  {
+    id: 'bb-hip-thrust',
+    name: 'Barbell Hip Thrust',
+    tier: 'standard',
+    type: 'reps',
+    bodyArea: ['Lower Body'],
+    difficulty: 'Intermediate',
+    equipment: 'Barbell',
+    emoji: '🏋️',
+    defaultTarget: 10,
+    formPoints: [
+      'Upper back on a bench, bar across the hips (use a pad)',
+      'Feet flat, shins vertical at the top position',
+      'Drive through heels — lift hips until torso is level',
+      'Squeeze glutes hard at the top, chin tucked',
+      'Lower with control without resting between reps',
+    ],
+    aiChecks: [
+      'Full hip extension at the top of each rep',
+      'Hips lower with control each rep',
+      'Consistent tempo throughout the set',
+    ],
+    commonMistakes: [
+      'Hyperextending the lower back at the top',
+      'Partial reps — not reaching full extension',
+      'Pushing through toes instead of heels',
+    ],
+    cameraPlacement: 'Side view, phone at floor level, full body visible',
+    easierVariation: 'Glute Bridge',
+    detection: {
+      hipTolerance: 12,
+      keypointsNeeded: ['left_shoulder', 'left_hip', 'left_knee', 'left_ankle'],
+    },
+  },
+  {
+    id: 'bb-lunge',
+    name: 'Barbell Lunge',
+    tier: 'standard',
+    type: 'reps',
+    bodyArea: ['Lower Body'],
+    difficulty: 'Advanced',
+    equipment: 'Barbell',
+    emoji: '🏋️',
+    defaultTarget: 10,
+    formPoints: [
+      'Bar on upper traps as in a back squat',
+      'Step forward into a split stance',
+      'Lower until the back knee nearly touches the floor',
+      'Front knee tracks over the toes',
+      'Push through the front heel to return — torso tall throughout',
+    ],
+    aiChecks: [
+      'Back knee reaches near-floor depth each rep',
+      'Front knee tracks over toes',
+      'Torso stays upright — no forward collapse',
+    ],
+    commonMistakes: [
+      'Short, shallow steps that cut depth',
+      'Front knee driving past the toes',
+      'Leaning the torso forward under load',
+    ],
+    cameraPlacement: 'Side view, phone at hip height, full body visible',
+    easierVariation: 'Dumbbell Lunges',
+    detection: {
+      downAngle: 95,
+      upAngle: 165,
+      hipTolerance: 20,
+      keypointsNeeded: ['left_hip', 'left_knee', 'left_ankle'],
+    },
+  },
 ];
 
 export const FREE_EXERCISE_IDS = ['push-up', 'squat', 'plank', 'superman'];
@@ -1410,7 +1691,7 @@ export const bodyAreas = [
 ];
 
 export const equipmentTypes = [
-  'Bodyweight', 'Resistance Bands', 'Dumbbells', 'Kettlebell', 'Pull-up Bar', 'Bench or Chair'
+  'Bodyweight', 'Resistance Bands', 'Dumbbells', 'Kettlebell', 'Barbell', 'Pull-up Bar', 'Bench or Chair'
 ];
 
 // Body part categories for the picker (maps exercises to 4 simple groups)
@@ -1426,6 +1707,7 @@ export const equipmentOptions = [
   { id: 'Dumbbells', name: 'Dumbbells', emoji: '🏋️', description: 'A pair of dumbbells (any weight)' },
   { id: 'Pull-up Bar', name: 'Pull-up Bar', emoji: '💪', description: 'Doorway or wall-mounted bar' },
   { id: 'Kettlebell', name: 'Kettlebell', emoji: '🔔', description: 'Any size kettlebell' },
+  { id: 'Barbell', name: 'Barbell', emoji: '🏋️', description: 'Barbell with plates (rack/bench optional)' },
   { id: 'Resistance Bands', name: 'Resistance Bands', emoji: '🟡', description: 'Loop or handled bands' },
 ];
 

@@ -16,6 +16,7 @@ import CameraScreen from './screens/CameraScreen';
 import LegalScreen from './screens/LegalScreen';
 import EquipmentScreen from './screens/EquipmentScreen';
 import ProgramBuilderScreen from './screens/ProgramBuilderScreen';
+import ManualLogScreen from './screens/ManualLogScreen';
 import ExerciseHowToScreen from './screens/ExerciseHowToScreen';
 
 function AppShell() {
@@ -37,8 +38,17 @@ function AppShell() {
       />
     );
   }
-  // Camera overlay (one set per camera run)
+  // Camera overlay (one set per camera run) — or manual logging when bypassed
   if (state.showCamera) {
+    const bypass = !state.settings?.formCheckEnabled || state.manualLogOverride;
+    if (bypass) {
+      return (
+        <ManualLogScreen
+          exercise={state.currentExercise}
+          onComplete={(result) => dispatch({ type: 'COMPLETE_EXERCISE', payload: result })}
+        />
+      );
+    }
     return (
       <CameraScreen
         exercise={state.currentExercise}

@@ -8,7 +8,7 @@ import { getScaledTarget } from '../data/exercises';
  * Explains how the AI camera works so the user knows what to expect.
  */
 export default function ExerciseHowToScreen({ exercise, onReady }) {
-  const { state } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
   const isHold = exercise?.type === 'hold';
   const target = exercise
     ? getScaledTarget(exercise, state.gender, state.activityLevel, state.sessionsCompleted)
@@ -18,7 +18,7 @@ export default function ExerciseHowToScreen({ exercise, onReady }) {
     <div style={styles.screen}>
       {/* Header */}
       <div style={styles.header}>
-        <span style={styles.logo}>FORMFORGE</span>
+        <span style={styles.logo}>FORMFORGED</span>
       </div>
 
       {/* Title */}
@@ -88,6 +88,17 @@ export default function ExerciseHowToScreen({ exercise, onReady }) {
         <Button onClick={onReady}>
           I'm Ready! Let's Go! {'🔥'}
         </Button>
+        <button
+          onClick={() => dispatch({ type: 'LOG_MANUALLY' })}
+          style={{
+            display: 'block', width: '100%', marginTop: 12,
+            background: 'transparent', border: 'none',
+            color: '#9AA0B8', fontSize: 13, cursor: 'pointer',
+            textDecoration: 'underline', fontFamily: "'DM Sans', sans-serif",
+          }}
+        >
+          No camera? Log this workout manually
+        </button>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
-# FormForge — Getting Started
+# FormForged — Getting Started
 
-## What is FormForge
+## What is FormForged
 
 An AI form-coaching PWA: real-time camera form checking is the engine that builds
 and adapts your workout program — not just a rep counter.
@@ -39,5 +39,5 @@ Opens at `http://localhost:5173`. Use Chrome DevTools mobile view.
 
 ## Notes
 
-- All data is stored locally in the browser (`formforge_state`); no account needed
+- All data is stored locally in the browser (`formforged_state`); no account needed
 - The camera never uploads video — pose detection runs entirely on-device

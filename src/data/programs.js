@@ -1,5 +1,5 @@
 /**
- * FormForge Program Data
+ * FormForged Program Data
  * Movement patterns, program templates, goal configs, progression models.
  * The program engine (services/programEngine.js) turns these into a personalized plan.
  */
@@ -59,6 +59,16 @@ export const PATTERN_MAP = {
   'band-bicep-curl':    { pattern: 'arms', rank: 1 },
   'db-tricep-kickback': { pattern: 'arms', rank: 1 },
   'diamond-push-up':    { pattern: 'arms', rank: 3 },
+
+  // barbell
+  'bb-back-squat':         { pattern: 'squat', rank: 4 },
+  'bb-lunge':              { pattern: 'lunge', rank: 4 },
+  'bb-hip-thrust':         { pattern: 'hinge', rank: 3 },
+  'bb-romanian-deadlift':  { pattern: 'hinge', rank: 4 },
+  'bb-deadlift':           { pattern: 'hinge', rank: 5 },
+  'bb-bench-press':        { pattern: 'push-h', rank: 5 },
+  'bb-overhead-press':     { pattern: 'push-v', rank: 4 },
+  'bb-row':                { pattern: 'pull', rank: 4 },
 
   // lower accessory / conditioning
   'calf-raise': { pattern: 'lower-acc', rank: 1 },
